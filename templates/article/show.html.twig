@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block body %}
+    <div class="article">
+        <h1>Article</h1>
+        {% if is_granted('ROLE_ADMIN') %}
+        <div class="d-flex">
+            <a class="btn btn-primary mb-2" href="{{ path('article.edit', {id:article.id}) }}">Editer un article</a>
+
+            <form method="post" action="{{ path('article.delete', {id:article.id}) }}">
+                <input type="hidden"  name="_method" value="DELETE">
+                <button class="btn btn-danger">Supprimer</button>
+            </form>
+        </div>
+        {% else %}
+            <a class="btn btn-primary mb-2" href="{{ path('article.index', {id:article.id}) }}">Commenter article</a>
+        {% endif %}
+
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ article.name }}</h5>
+                    <p class="card-text">{{ article.description }}</p>
+                    <a href="#" class="btn btn-primary">{{ article.price }}€</a>
+                </div>
+            </div>
+            <div class="com">
+                <h2>Commentaires</h2>
+            </div>
+    </div>
+{% endblock %}
